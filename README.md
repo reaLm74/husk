@@ -24,7 +24,7 @@ create_db()
 ```
 - Запустите веб-сервер:
 ```
-python husk.py
+python app.py
 ```
 
 </details>
