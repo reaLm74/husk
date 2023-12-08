@@ -7,6 +7,15 @@
     * Реализована простая система аутентификации пользователей.
 3. Интегрирована SQLite база данных для хранения задач.
 4. Написана краткая документация к API.
+
+---
+
+## Технологии
+
+- Python
+- Flask
+- SQLAlchemy
+
 ---
 ### Запуск
 <details> 
@@ -17,25 +26,27 @@
 ```
 pip install -r requirements.txt
 ``` 
-- Создайте БД через консоль Python
+
+<details> <summary> Шаблон наполнения .env </summary>
+
 ```
-from husk import create_db
-create_db()
+FLASK_APP=app
+FLASK_ENV=development
+FLASK_DEBUG=true
+
+SECRET_KEY = 'hfoi7y2btb2trfdsfsfs2pb9fyb2b893YRNWPRYbypyrnpyBYRb8yNPy'
 ```
+</details>
+
 - Запустите веб-сервер:
 ```
-python app.py
+flask run
 ```
 
 </details>
 
 ---
 
-Формат выходных данных: JSON.
-
-При получении ответа также приходит статус.
-
----
 ## Примеры запросов
 
 Регистрация пользователя
