@@ -1,10 +1,11 @@
 import sqlite3
 
-from app.models import db, Tasks, Users
+from app.models import db
+from app.task.models import Tasks
+from app.user.models import Users
 
 
 def get_task_detail(task_id):
-    """Вывод одной задачи"""
     try:
         res = db.get_or_404(Tasks, task_id)
         return res
@@ -13,16 +14,14 @@ def get_task_detail(task_id):
 
 
 def get_tasks():
-    """Вывод всех задач"""
     try:
-        res = Tasks.query.all()
+        res = Tasks.query.filter()
         return res
     except sqlite3.Error as e:
         raise Exception(f'Error get tasks from the database {e}')
 
 
 def get_add_task(request_data):
-    """Добавить задачу"""
     try:
         title = request_data['title']
         description = request_data.get('description', "")
@@ -36,7 +35,6 @@ def get_add_task(request_data):
 
 
 def get_update_task(task_id, request_data):
-    """Обновить задачу"""
     try:
         task = db.get_or_404(Tasks, task_id)
         for key, value in request_data.items():
@@ -51,7 +49,6 @@ def get_update_task(task_id, request_data):
 
 
 def get_delete_task(task_id):
-    """Удалить задачу"""
     try:
         task = db.get_or_404(Tasks, task_id)
         db.session.delete(task)
@@ -62,9 +59,7 @@ def get_delete_task(task_id):
 
 
 def add_user(request):
-    """Добавить пользователя"""
     try:
-        print(request)
         new_user = Users(username=request['username'])
         new_user.set_password(request['password'])
         db.session.add(new_user)
@@ -74,7 +69,6 @@ def add_user(request):
 
 
 def get_user_by_username(username):
-    """Получение пользователя по username"""
     try:
         user = Users.query.filter(Users.username == username).count()
         return user
