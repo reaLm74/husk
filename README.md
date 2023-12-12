@@ -17,7 +17,7 @@
 - SQLAlchemy
 
 ---
-### Запуск
+## Запуск
 <details> 
 <summary> Подробнее </summary>
 
@@ -49,6 +49,8 @@ flask run
 
 ## Примеры запросов
 
+<details> 
+<summary> Подробнее </summary>
 Регистрация пользователя
 ```
 POST http://127.0.0.1:5000/todo/api/v1.0/auth/signup
@@ -255,3 +257,6 @@ DELETE http://127.0.0.1:5000/todo/api/v1.0/tasks/14
 ```
 {"error": "Not found task"}
 ```
+</details>
+
+---

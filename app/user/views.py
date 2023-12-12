@@ -8,6 +8,22 @@ from app.user.models import Users
 blueprint = Blueprint('user', __name__, url_prefix='/todo/api/v1.0/auth')
 
 
+@blueprint.route('/signup', methods=['POST'])
+def signup():
+    try:
+        if len(request.json['username']) < 4 or len(
+                str(request.json['password'])) < 6:
+            return jsonify(
+                {'error': 'Fields are not filled in correctly'}), 401
+        check_user = get_user_by_username(request.json['username'])
+        if check_user == 1:
+            return jsonify({'error': 'User is registered'}), 401
+        add_user(request.json)
+        return jsonify({'signup': 'Successful'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 404
+
+
 @blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     try:
@@ -28,22 +44,6 @@ def login():
                 ), 200
             return jsonify({'error': 'Invalid username or password'}), 200
 
-    except Exception as e:
-        return jsonify({'error': str(e)}), 404
-
-
-@blueprint.route('/signup', methods=['POST'])
-def signup():
-    try:
-        if len(request.json['username']) < 4 or len(
-                str(request.json['password'])) < 6:
-            return jsonify(
-                {'error': 'Fields are not filled in correctly'}), 401
-        check_user = get_user_by_username(request.json['username'])
-        if check_user == 1:
-            return jsonify({'error': 'User is registered'}), 401
-        add_user(request.json)
-        return jsonify({'signup': 'Successful'}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 404
 

@@ -1,6 +1,6 @@
 from flask import Flask
-from flask_login import (LoginManager)
-
+from flask_login import LoginManager
+from flask_migrate import Migrate
 from app.create_db import create_db
 from app.models import db
 from app.request_data_base import (get_add_task, get_task_detail, get_tasks,
@@ -16,6 +16,8 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object('app.config')
     db.init_app(app)
+    migrate = Migrate(app, db)
+
     create_db(app)
     app.register_blueprint(user_blueprint)
     app.register_blueprint(task_blueprint)
